@@ -1,0 +1,56 @@
+{
+  "name": "main-server",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/apis/main-server/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/backend/apis/main-server",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "backend/apis/main-server/src/main.ts",
+        "tsConfig": "backend/apis/main-server/tsconfig.app.json",
+        "assets": ["backend/apis/main-server/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "main-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "main-server:build:development"
+        },
+        "production": {
+          "buildTarget": "main-server:build:production"
+        }
+      }
+    }
+  }
+}

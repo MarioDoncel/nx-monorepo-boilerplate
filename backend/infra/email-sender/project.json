@@ -1,0 +1,21 @@
+{
+  "name": "email-sender",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/email-sender/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/email-sender",
+        "main": "backend/infra/email-sender/src/index.ts",
+        "tsConfig": "backend/infra/email-sender/tsconfig.lib.json",
+        "assets": ["backend/infra/email-sender/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

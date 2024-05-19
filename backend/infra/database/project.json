@@ -1,0 +1,21 @@
+{
+  "name": "database",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/database/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/database",
+        "main": "backend/infra/database/src/index.ts",
+        "tsConfig": "backend/infra/database/tsconfig.lib.json",
+        "assets": ["backend/infra/database/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

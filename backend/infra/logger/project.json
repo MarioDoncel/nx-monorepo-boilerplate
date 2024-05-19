@@ -1,0 +1,21 @@
+{
+  "name": "logger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/logger/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/logger",
+        "main": "backend/infra/logger/src/index.ts",
+        "tsConfig": "backend/infra/logger/tsconfig.lib.json",
+        "assets": ["backend/infra/logger/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

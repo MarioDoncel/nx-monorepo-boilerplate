@@ -1,0 +1,21 @@
+{
+  "name": "token-service",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/token-service/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/token-service",
+        "main": "backend/infra/token-service/src/index.ts",
+        "tsConfig": "backend/infra/token-service/tsconfig.lib.json",
+        "assets": ["backend/infra/token-service/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

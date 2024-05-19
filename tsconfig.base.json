@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@monorepo/database": ["backend/infra/database/src/index.ts"],
+      "@monorepo/email-sender": ["backend/infra/email-sender/src/index.ts"],
+      "@monorepo/entities": ["shared/entities/src/index.ts"],
+      "@monorepo/in-memory-data-store": [
+        "backend/infra/in-memory-data-store/src/index.ts"
+      ],
+      "@monorepo/logger": ["backend/infra/logger/src/index.ts"],
+      "@monorepo/query-builder": ["backend/infra/query-builder/src/index.ts"],
+      "@monorepo/token-service": ["backend/infra/token-service/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

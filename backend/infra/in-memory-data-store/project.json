@@ -1,0 +1,21 @@
+{
+  "name": "in-memory-data-store",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/in-memory-data-store/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/in-memory-data-store",
+        "main": "backend/infra/in-memory-data-store/src/index.ts",
+        "tsConfig": "backend/infra/in-memory-data-store/tsconfig.lib.json",
+        "assets": ["backend/infra/in-memory-data-store/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

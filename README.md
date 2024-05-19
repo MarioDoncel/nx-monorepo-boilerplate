@@ -1,4 +1,6 @@
 # 
+** TO CHANGE WORKSPACE NAME -> Replace root package.json name field and then all imports on tsconfig.base.json. Run 'nx reset' and then reload vsCode. After that you will probably need to rename all related imports inside the project**
+
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
