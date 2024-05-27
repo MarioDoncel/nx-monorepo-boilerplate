@@ -1,0 +1,21 @@
+{
+  "name": "file-storage",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/file-storage/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/file-storage",
+        "main": "backend/infra/file-storage/src/index.ts",
+        "tsConfig": "backend/infra/file-storage/tsconfig.lib.json",
+        "assets": ["backend/infra/file-storage/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

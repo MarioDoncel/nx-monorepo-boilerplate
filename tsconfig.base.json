@@ -20,6 +20,10 @@
       "@monorepo/database": ["backend/infra/database/src/index.ts"],
       "@monorepo/email-sender": ["backend/infra/email-sender/src/index.ts"],
       "@monorepo/entities": ["shared/entities/src/index.ts"],
+      "@monorepo/exception-catcher": [
+        "backend/infra/exception-catcher/src/index.ts"
+      ],
+      "@monorepo/file-storage": ["backend/infra/file-storage/src/index.ts"],
       "@monorepo/in-memory-data-store": [
         "backend/infra/in-memory-data-store/src/index.ts"
       ],

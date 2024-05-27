@@ -1,0 +1,21 @@
+{
+  "name": "exception-catcher",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/infra/exception-catcher/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/infra/exception-catcher",
+        "main": "backend/infra/exception-catcher/src/index.ts",
+        "tsConfig": "backend/infra/exception-catcher/tsconfig.lib.json",
+        "assets": ["backend/infra/exception-catcher/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}

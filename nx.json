@@ -33,7 +33,10 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["backend/apis/main-server-e2e/**/*"]
+      "exclude": [
+        "backend/apis/main-server-e2e/**/*",
+        "backend/apis/main-server-e2e/**/*"
+      ]
     }
   ]
 }
