@@ -1,15 +1,26 @@
 import { Client, ClientConfig, Pool, PoolClient, PoolConfig } from 'pg';
 
-import { z } from 'zod';
 import { Database } from '../database';
+import { DATABASE_ENVS } from '../config/envs';
+import { timeoutDefaultConfig } from '../config/timeout';
+import { sslDefaultConfig } from '../config/ssl';
 
-const databaseEnvSchema = z.object({
-  DATABASE_PORT: z.coerce.number(),
-  DATABASE_NAME: z.string(),
-  DATABASE_HOST: z.string(),
-  DATABASE_PASSWORD: z.string(),
-  DATABASE_USERNAME: z.string(),
-});
+const {
+  DATABASE_PORT,
+  DATABASE_NAME,
+  DATABASE_HOST,
+  DATABASE_PASSWORD,
+  DATABASE_USERNAME,
+  DATABASE_POOL_MAX_CONNECTIONS,
+} = DATABASE_ENVS;
+
+const defaultDatabaseConfig = {
+  DATABASE_PORT,
+  DATABASE_NAME,
+  DATABASE_HOST,
+  DATABASE_PASSWORD,
+  DATABASE_USERNAME,
+};
 
 export class DatabasePg implements Database {
   private db: Client | Pool | undefined;
@@ -17,32 +28,15 @@ export class DatabasePg implements Database {
   private connectionType: 'single' | 'pool' = 'single';
   private config: ClientConfig | PoolConfig;
 
-  constructor(
-    config = {
-      DATABASE_PORT: process.env['DATABASE_PORT'],
-      DATABASE_NAME: process.env['POSTGRES_DB'],
-      DATABASE_HOST: process.env['DATABASE_HOST'],
-      DATABASE_PASSWORD: process.env['POSTGRES_PASSWORD'],
-      DATABASE_USERNAME: process.env['POSTGRES_USER'],
-    }
-  ) {
-
+  constructor(config = defaultDatabaseConfig) {
     try {
-      const envs = databaseEnvSchema.parse(config);
-      const {
-        DATABASE_PORT,
-        DATABASE_NAME,
-        DATABASE_HOST,
-        DATABASE_PASSWORD,
-        DATABASE_USERNAME,
-      } = envs;
       this.config = {
-        user: DATABASE_USERNAME,
-        host: DATABASE_HOST,
-        database: DATABASE_NAME,
-        password: DATABASE_PASSWORD,
-        port: DATABASE_PORT,
-      }
+        user: config.DATABASE_USERNAME,
+        host: config.DATABASE_HOST,
+        database: config.DATABASE_NAME,
+        password: config.DATABASE_PASSWORD,
+        port: config.DATABASE_PORT,
+      };
     } catch (error) {
       console.log('[ERROR-MISSING ENVS]: Missing database envs');
       throw error;
@@ -50,24 +44,31 @@ export class DatabasePg implements Database {
   }
   async connectClient() {
     if (this.isConnected) {
+      if (this.connectionType === 'pool') {
+        throw new Error('Database already connected as pool');
+      }
       return;
     }
-    this.db = new Client(this.config);
+    this.db = new Client({
+      ...this.config,
+      ...timeoutDefaultConfig,
+    });
     await this.db.connect();
     this.connectionType = 'single';
     this.isConnected = true;
   }
   async connectPool() {
     if (this.isConnected) {
+      if (this.connectionType === 'single') {
+        throw new Error('Database already connected as single client');
+      }
       return;
     }
     this.db = new Pool({
       ...this.config,
-      // max: 20,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
-      ...(process.env['NODE_ENV'] === 'production' ? { ssl: { rejectUnauthorized: false } } : {})
-      //* For AWS
+      max: DATABASE_POOL_MAX_CONNECTIONS,
+      ...timeoutDefaultConfig,
+      ...sslDefaultConfig,
     });
     await this.db.connect();
     this.connectionType = 'pool';
@@ -97,11 +98,10 @@ export class DatabasePg implements Database {
     if (!this.isConnected || !this.db) {
       throw new Error('Database not connected');
     }
-    const transactionDb = new DatabasePg()
+    const transactionDb = new DatabasePg();
     await transactionDb.connectClient();
     return transactionDb;
   }
-
 
   async runQueriesInATransaction<T = unknown[]>(
     queries: { query: string; values: unknown[] }[]
@@ -109,25 +109,25 @@ export class DatabasePg implements Database {
     if (!this.isConnected || !this.db) {
       throw new Error('Database not connected');
     }
-    const client = this.isPoolType(this.db)
+    const transactionClient = this.isPoolType(this.db)
       ? await this.db.connect()
       : this.db;
 
     const results: unknown[] = [];
     try {
-      await client.query('BEGIN');
+      await transactionClient.query('BEGIN');
       for (const { query, values } of queries) {
-        const result = await client.query(query, values);
+        const result = await transactionClient.query(query, values);
         results.push(result.rows);
       }
-      await client.query('COMMIT');
+      await transactionClient.query('COMMIT');
       return results as T;
     } catch (error) {
-      await client.query('ROLLBACK');
+      await transactionClient.query('ROLLBACK');
       throw error;
     } finally {
-      if (this.isPoolClient(client)) {
-        (client as PoolClient).release();
+      if (this.isPoolClient(transactionClient)) {
+        transactionClient.release();
       }
     }
   }
@@ -138,5 +138,3 @@ export class DatabasePg implements Database {
     return this.connectionType === 'pool';
   }
 }
-
-

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "USER_ME",
+    "description": "Get own user data",
+    "is_user_default": true,
+    "is_admin_default": true,
+    "is_master_admin_default": true,
+    "is_guest_default": true,
+    "is_trial_user_default": true
+  }
+]

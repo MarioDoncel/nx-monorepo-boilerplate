@@ -1,0 +1,1 @@
+export type WithId<T extends { id?: string | number | null }> = Omit<T, 'id'> & { id: NonNullable<T['id']> }  

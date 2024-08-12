@@ -1,0 +1,28 @@
+{
+  "name": "errors",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "shared/errors/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/shared/errors",
+        "main": "shared/errors/src/index.ts",
+        "tsConfig": "shared/errors/tsconfig.lib.json",
+        "assets": ["shared/errors/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/shared/errors"
+      }
+    }
+  }
+}

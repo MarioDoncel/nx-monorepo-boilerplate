@@ -1,0 +1,1 @@
+export const booleanToSOrN = (value: boolean): 'S' | 'N' => value ? 'S' : 'N'

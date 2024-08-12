@@ -1,0 +1,28 @@
+{
+  "name": "auth",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend/modules/auth/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/backend/modules/auth",
+        "main": "backend/modules/auth/src/index.ts",
+        "tsConfig": "backend/modules/auth/tsconfig.lib.json",
+        "assets": ["backend/modules/auth/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/backend/modules/auth"
+      }
+    }
+  }
+}

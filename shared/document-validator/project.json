@@ -1,0 +1,28 @@
+{
+  "name": "document-validator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "shared/document-validator/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/shared/document-validator",
+        "main": "shared/document-validator/src/index.ts",
+        "tsConfig": "shared/document-validator/tsconfig.lib.json",
+        "assets": ["shared/document-validator/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/shared/document-validator"
+      }
+    }
+  }
+}
