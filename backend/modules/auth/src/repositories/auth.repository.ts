@@ -2,7 +2,6 @@ import { kyselyDBClient } from '@monorepo/database';
 import { Permission, Role, User } from '@monorepo/entities';
 import { NullableProperties, WithNotNullValues } from '@monorepo/interfaces';
 import { PermissionSelect } from 'backend/infra/database/src/lib/implementations/kysely/tables/permission';
-import { RefreshTokenCreate } from 'backend/infra/database/src/lib/implementations/kysely/tables/refresh-token';
 import { RoleSelect } from 'backend/infra/database/src/lib/implementations/kysely/tables/role';
 import { UserSelect } from 'backend/infra/database/src/lib/implementations/kysely/tables/user';
 
