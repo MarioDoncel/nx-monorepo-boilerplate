@@ -29,12 +29,13 @@ export class BaseSequentialEntity {
     return this._created_at;
   }
 }
-
-export function MakeUpdatable<Base extends new (...args: any[]) => {}>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function MakeUpdatable<Base extends new (...args: any[]) => object>(
   Base: Base
 ) {
   return class extends Base {
     #updated_at: Date;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       this.#updated_at = args[0]?.updated_at || new Date();
@@ -57,12 +58,13 @@ export function MakeUpdatable<Base extends new (...args: any[]) => {}>(
 //     return this._updated_at
 //   }
 // }
-
-export function MakeSoftDeletable<Base extends new (...args: any[]) => {}>(
-  Base: Base
-) {
+export function MakeSoftDeletable<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Base extends new (...args: any[]) => Record<string, unknown>
+>(Base: Base) {
   return class extends Base {
     #deleted_at?: Date | null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       this.#deleted_at = args[0]?.deleted_at;

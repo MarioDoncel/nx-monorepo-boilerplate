@@ -7,7 +7,6 @@ type PermissionAuthorizationServiceParams = {
 };
 
 export class PermissionAuthorizationService {
-  constructor() {}
   async execute({
     requiredPermission,
     userPermissions,

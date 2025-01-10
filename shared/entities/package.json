@@ -1,7 +1,12 @@
 {
   "name": "@./entities",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@monorepo/interfaces": "0.0.1",
+    "@monorepo/document-validator": "0.0.1",
+    "@monorepo/errors": "0.0.1",
+    "@monorepo/helpers": "0.0.1"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

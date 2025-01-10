@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { EmailSender } from "../email-sender";
+import { z } from 'zod';
+import { EmailSender } from '../email-sender';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
 const envSchema = z.object({

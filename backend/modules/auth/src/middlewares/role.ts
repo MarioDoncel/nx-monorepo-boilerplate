@@ -7,7 +7,6 @@ type RoleAuthorizationServiceParams = {
 };
 
 export class RoleAuthorizationService {
-  constructor() {}
   async execute({ requiredRole, userRoles }: RoleAuthorizationServiceParams) {
     const hasRole = userRoles?.includes(requiredRole);
     if (!hasRole) {

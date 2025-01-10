@@ -1,7 +1,14 @@
 {
   "name": "@monorepo/auth",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@./token-service": "0.0.1",
+    "@./entities": "0.0.1",
+    "@monorepo/errors": "0.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "@./database": "0.0.1",
+    "@monorepo/interfaces": "0.0.1"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

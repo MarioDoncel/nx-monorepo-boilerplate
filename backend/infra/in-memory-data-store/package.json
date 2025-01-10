@@ -1,7 +1,9 @@
 {
   "name": "@./in-memory-data-store",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

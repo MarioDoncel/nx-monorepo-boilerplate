@@ -12,24 +12,12 @@ pre-push:
 pre-commit:
   parallel: true
   commands:
-    # backend-format-lint:
-    #   stage_fixed: true
-    #   glob: "*.{js,ts,jsx,tsx}"
-    #   exclude: "*spec*.{js,ts,jsx,tsx}"
-    #   run:  |
-    #     cd backend
-    #     echo "Running Prettier on the backend..."
-    #     echo "{staged_files}" | tr ' ' '\n' | grep '^backend/src' | sed 's|backend/||g' | xargs yarn prettier --write
-    #     echo "Running ESLint on the backend..."
-    #     echo "{staged_files}" | tr ' ' '\n' | grep '^backend/src' | sed 's|backend/||g' | xargs yarn eslint --fix -c .eslintrc.git-hook.js
-    # frontend-format-lint:
-    #   stage_fixed: true
-    #   glob: "*.{js,ts,jsx,tsx}"
-    #   exclude: "*spec*.{js,ts,jsx,tsx}"
-    #   run:  |
-    #     cd next-frontend
-    #     echo "Running Prettier on the frontend..."
-    #     echo "{staged_files}" | tr ' ' '\n' | grep '^next-frontend/src' | sed 's|next-frontend/||g' | xargs yarn prettier --write
-    #     echo "Running ESLint on the next-frontend..."
-    #     echo "{staged_files}" | tr ' ' '\n' | grep '^next-frontend/src' | sed 's|next-frontend/||g' | xargs yarn eslint --fix -c .eslintrc.git-hook.js
-
+    format-lint:
+      stage_fixed: true
+      glob: '*.{js,ts,jsx,tsx}'
+      exclude: '*spec*.{js,ts,jsx,tsx}'
+      run: |
+        echo "Running Prettier..."
+        nx format:write
+        echo "Running ESLint..."
+        nx affected:lint --fix

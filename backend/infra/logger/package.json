@@ -1,7 +1,10 @@
 {
   "name": "@monorepo/logger",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "pino": "^9.1.0",
+    "pino-pretty": "^11.0.0"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

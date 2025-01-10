@@ -24,7 +24,7 @@ const defaultDatabaseConfig = {
 
 export class DatabasePg implements Database {
   private db: Client | Pool | undefined;
-  private isConnected: boolean = false;
+  private isConnected = false;
   private connectionType: 'single' | 'pool' = 'single';
   private config: ClientConfig | PoolConfig;
 

@@ -1,7 +1,9 @@
 {
   "name": "@monorepo/document-validator",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "cpf-cnpj-validator": "^1.0.3"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

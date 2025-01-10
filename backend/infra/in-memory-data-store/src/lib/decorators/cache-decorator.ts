@@ -1,4 +1,4 @@
-import { InMemoryDataStore } from "../in-memory-data-store";
+import { InMemoryDataStore } from '../in-memory-data-store';
 
 export interface UseCaseCacheDecoratorOptions {
   ttl: number; // in seconds
@@ -6,7 +6,7 @@ export interface UseCaseCacheDecoratorOptions {
 }
 
 interface UseCase {
-  execute(...args: any): Promise<unknown>
+  execute(...args: unknown[]): Promise<unknown>;
 }
 
 export class UseCaseCacheDecorator {
@@ -16,7 +16,7 @@ export class UseCaseCacheDecorator {
     private readonly cache: InMemoryDataStore
   ) {}
 
-  async execute(...args: any) {
+  async execute(...args: unknown[]) {
     const receivedKey = JSON.stringify(args);
     const isKeyTracked = this.options.keys.includes(receivedKey);
     if (!isKeyTracked) {
@@ -47,8 +47,9 @@ export class UseCaseCacheDecorator {
   private async saveToCache(key: string, value: unknown) {
     try {
       const stringValue = JSON.stringify(value);
-      await this.cache.setString(key, stringValue, { expireInSeconds: this.options.ttl });
-
+      await this.cache.setString(key, stringValue, {
+        expireInSeconds: this.options.ttl,
+      });
     } catch (error) {
       //! Log/Capture error
     } //* This way we are not depending on the cache to be available to have the application working

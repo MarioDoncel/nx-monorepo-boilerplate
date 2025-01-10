@@ -1,9 +1,7 @@
-export function tryConvertToNumber<T extends unknown>(
-  originalValue: T,
-): T | number {
-  const converted = Number(originalValue)
+export function tryConvertToNumber<T>(originalValue: T): T | number {
+  const converted = Number(originalValue);
   if (isNaN(converted)) {
-    return originalValue
+    return originalValue;
   }
-  return converted
+  return converted;
 }

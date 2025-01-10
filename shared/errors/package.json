@@ -1,7 +1,10 @@
 {
   "name": "@monorepo/errors",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "process": "0.11.10",
+    "@monorepo/exception-catcher": "0.0.1"
+  },
   "type": "commonjs",
   "main": "./index.cjs",
   "private": true

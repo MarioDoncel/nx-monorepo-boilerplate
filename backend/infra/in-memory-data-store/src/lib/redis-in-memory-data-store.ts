@@ -21,7 +21,7 @@ const clusterEnvSchema = z.object({
 export class InMemoryDataStoreRedis implements InMemoryDataStore {
   private client: RedisClientType | RedisClusterType;
 
-  private isConnected: boolean = false;
+  private isConnected = false;
   constructor(mode: 'cluster' | 'single' = 'single') {
     try {
       if (mode === 'cluster') {
@@ -75,7 +75,9 @@ export class InMemoryDataStoreRedis implements InMemoryDataStore {
   async queryHash<K extends keyof Hashes>(
     key: string
   ): Promise<(K extends keyof Hashes ? Hashes[K] : never) | null> {
-    const result = (await this.client.hGetAll(key)) as K extends keyof Hashes ? Hashes[K] : never;
+    const result = (await this.client.hGetAll(key)) as K extends keyof Hashes
+      ? Hashes[K]
+      : never;
     if (Object.keys(result).length === 0) {
       return null;
     }

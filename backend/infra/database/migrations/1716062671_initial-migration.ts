@@ -4,6 +4,7 @@ import permissionsSeed from '../seeds/permissions.json';
 import usersSeed from '../seeds/users.json';
 import { Password } from '../../../../shared/entities/src';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function up(db: Kysely<any>): Promise<void> {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`.execute(db);
 
@@ -97,7 +98,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     )
     .execute();
 }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function down(db: Kysely<any>): Promise<void> {
   await db.schema.dropTable('users_permissions').execute();
   await db.schema.dropTable('users_roles').execute();
